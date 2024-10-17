@@ -7,7 +7,7 @@ conda create -n ZN-OCR python=3.9
 pip install paddleocr,paddlepaddle,pandas,sdpc-for-python
 `
 ## Settings
-Use Sdpc.py to replace the Sdpc.py in XXX/Anaconda3/envs/ZN-OCR/Lib/site-packages/sdpc/Sdpc.py
+`Use Sdpc.py to replace the Sdpc.py in XXX/Anaconda3/envs/ZN-OCR/Lib/site-packages/sdpc/Sdpc.py`
 
 
 ## Run the script
