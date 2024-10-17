@@ -10,8 +10,10 @@ OCR scripts for WSI rename of ZN-Hospital
 
 ## Run the script
 `conda activate ZN-OCR`
+
 `set Params (WSI_DIR_LIST and WORK_DIR) in ZN-Hospital-WSIs-Rename.py`
-`python rename.py`
+
+`python ZN-Hospital-WSIs-Rename.py`
 
 ## Description
 `Due to handwriting and recognition accuracy issues, manual subsequent modifications are required`
