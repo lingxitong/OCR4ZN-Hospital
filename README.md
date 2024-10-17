@@ -4,6 +4,7 @@ OCR scripts for WSI rename of ZN-Hospital
 ## Envs
 `
 conda create -n ZN-OCR python=3.9
+
 pip install paddleocr,paddlepaddle,pandas,sdpc-for-python
 `
 ## Settings
