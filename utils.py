@@ -1,5 +1,6 @@
 import os
 from PIL import Image
+
 def get_slide_type(OCR_text):
     for text in OCR_text:
         if 'D2-40' in text or 'd2-40' in text:
@@ -74,7 +75,38 @@ def get_slide_type(OCR_text):
             return 'Clad18.2'
         if 'CK7' in text or 'ck7' in text:
             return 'CK7'
+        if 'MUC-1' in text or 'muc-1' in text or 'MUC1' in text or 'muc1' in text:
+            return 'MUC-1'
+        if 'MUC-2' in text or 'muc-2' in text or 'MUC2' in text or 'muc2' in text:
+            return 'MUC-2'
+        if 'MUC-3' in text or 'muc-3' in text or 'MUC3' in text or 'muc3' in text:
+            return 'MUC-3'
+        if 'MUC-4' in text or 'muc-4' in text:
+            return 'MUC-4'
+        if 'MUC-5' in text or 'muc-5' in text:
+            return 'MUC-5'
+        if 'MUC5AC' in text or 'muc5ac' in text:
+            return 'MUC5AC'
+        if 'PAX8' in text or 'pax8' in text:
+            return 'PAX-8'
+        if 'VILLIN' in text or 'villin' in text:
+            return 'VILLIN'
+        if 'SMA' in text or 'sma' in text:
+            return 'SMA'
+        if 'CK19' in text or 'ck19' in text:
+            return 'CK19'
+        if 'S-100' in text or 's-100' in text:
+            return 'S-100'
+        if 'SATB2' in text or 'satb2' in text or 'SATB-2' in text or 'satb-2' in text:
+            return 'SATB2'
     return 'HE' 
+
+def judge_has_rename(basename):
+    rename_label = ['-HE','D2-40','GATA-3','CD-31','KI-67','PD-L1','TTF-1','PR','Her-2','PSA','ER','SYN','PAX-8','GALECTIN-3','CD-56','HNF1-B','P53','PMS2','MUC6','MUC5AC','MSH6','CD-20','MSH2','MLH1','INSM1','P63','MUC-6','CK20','EBERpb','TRPS1','SF-1','GZB','TIA-1','CD-3','CMV','Clad18.2','CK7',
+                    'MUC-1','MUC-2','MUC-3','MUC-4','MUC-5','MUC5AC','PAX8','VILLIN','SMA','CK19','S-100','SATB2']  
+    if any(label in basename for label in rename_label):
+        return True
+
 def remove_chinese(text):
     return ''.join([char for char in text if not '\u4e00' <= char <= '\u9fa5'])
 
@@ -110,24 +142,27 @@ def is_not_substring(substring, string):
 
 def filter_OCR_text(OCR_text):
     OCR_text = [text for text in OCR_text if text != '']
-    OCR_text = [text for text in OCR_text if is_not_substring('病', text)]
-    OCR_text = [text for text in OCR_text if is_not_substring('理', text)]
-    OCR_text = [text for text in OCR_text if is_not_substring('武', text)]
-    OCR_text = [text for text in OCR_text if is_not_substring('中', text)]
-    OCR_text = [text for text in OCR_text if is_not_substring('医', text)]
-    OCR_text = [text for text in OCR_text if is_not_substring('院', text)]
-    OCR_text = [text for text in OCR_text if is_not_substring('南', text)]
-    OCR_text = [text for text in OCR_text if is_not_substring('大', text)]
-    OCR_text = [text for text in OCR_text if is_not_substring('学', text)]
-    OCR_text = [text for text in OCR_text if is_not_substring('汉', text)]
+    # OCR_text = [text for text in OCR_text if is_not_substring('病', text)]
+    # OCR_text = [text for text in OCR_text if is_not_substring('理', text)]
+    # OCR_text = [text for text in OCR_text if is_not_substring('武', text)]
+    # OCR_text = [text for text in OCR_text if is_not_substring('中', text)]
+    # OCR_text = [text for text in OCR_text if is_not_substring('医', text)]
+    # OCR_text = [text for text in OCR_text if is_not_substring('院', text)]
+    # OCR_text = [text for text in OCR_text if is_not_substring('南', text)]
+    # OCR_text = [text for text in OCR_text if is_not_substring('大', text)]
+    # OCR_text = [text for text in OCR_text if is_not_substring('学', text)]
+    # OCR_text = [text for text in OCR_text if is_not_substring('汉', text)]
     OCR_text = [text for text in OCR_text if is_not_substring('=', text)]
     OCR_text = [text for text in OCR_text if is_not_substring('/', text)]
     OCR_text = remove_chinese_from_OCR_text(OCR_text)
     OCR_text = [text.replace(' ','') for text in OCR_text]
+    OCR_text = [text for text in OCR_text if text != '']
     # OCR_text = [text for text in OCR_text if text.startswith('0') == False] 
     return OCR_text
 def is_alphanumeric(text):
     return text.isalnum()
+
+
 def get_path_id_Baidu(OCR_text):
     # 首先处理HE切片的编号
     # path_id = _path + _id
@@ -201,6 +236,8 @@ def is_all_digits(text):
     
 def Find_Real_OCR_Text(OCR_text_0, OCR_text_90, OCR_text_180, OCR_text_270):
     all_OCRs = [OCR_text_0, OCR_text_90, OCR_text_180, OCR_text_270]
+    Is_maybe = [0, 0, 0, 0]
+    Leg = [len(OCR_text_0), len(OCR_text_90), len(OCR_text_180), len(OCR_text_270)]
     i = 0
     for OCR_text in all_OCRs:
         for sub_text in OCR_text:
@@ -208,14 +245,25 @@ def Find_Real_OCR_Text(OCR_text_0, OCR_text_90, OCR_text_180, OCR_text_270):
                 if len(sub_text) > 5:
                     judge = sub_text.replace('-', '0')
                     if is_alphanumeric(judge):
-                        return i
+                        Is_maybe[i] = 1
             if sub_text.count('-') == 1:
                 if len(sub_text) > 5:
                     judge = sub_text.replace('-', '0')
                     if is_all_digits(judge):
-                        return i
+                        Is_maybe[i] = 1
         i += 1
-    return None
+    
+    if sum(Is_maybe) == 0:
+        return None
+    else:
+        max_leg_index = -1
+        max_leg_value = -1
+        for index, value in enumerate(Is_maybe):
+            if value == 1 and Leg[index] > max_leg_value:
+                max_leg_value = Leg[index]
+                max_leg_index = index
+        return max_leg_index
+        
          
          
 def rotate_and_save_image(image_path):
@@ -239,4 +287,4 @@ def get_OCR_ANS(img_path,ocr):
 def uniform_rename(wsi_path, new_path,label_path, new_label_path):
     os.rename(wsi_path, new_path)
     os.rename(label_path, new_label_path)
-    print(f'Renamed {os.path.basename(wsi_path)} to {os.path.basename(new_path)}')
+    print(f'\033[92mRenamed {os.path.basename(wsi_path)} to {os.path.basename(new_path)}\033[0m')
