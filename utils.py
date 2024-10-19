@@ -123,6 +123,7 @@ def filter_OCR_text(OCR_text):
     OCR_text = [text for text in OCR_text if is_not_substring('=', text)]
     OCR_text = [text for text in OCR_text if is_not_substring('/', text)]
     OCR_text = remove_chinese_from_OCR_text(OCR_text)
+    OCR_text = [text.replace(' ','') for text in OCR_text]
     # OCR_text = [text for text in OCR_text if text.startswith('0') == False] 
     return OCR_text
 def is_alphanumeric(text):
