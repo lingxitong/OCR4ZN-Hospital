@@ -1,26 +1,38 @@
-import os
-import time
 import subprocess
+import time
+import os
 
-def is_script_running(script_name):
-    try:
-        # Check if the script is running
-        result = subprocess.check_output(f'tasklist /FI "IMAGENAME eq python.exe" /FI "WINDOWTITLE eq {script_name}"', shell=True)
-        return script_name in result.decode()
-    except subprocess.CalledProcessError:
-        return False
+def run_program(path):
+    # 使用绝对路径和适当的参数启动 Python 脚本
+    return subprocess.Popen(["python3", path])
 
-def restart_script(script_name):
-    # Restart the script
-    subprocess.Popen(['python', script_name])
+def main():
+    # 程序路径和参数列表
+    programs = [
+        #    
+            {
+            "path": r"C:\Users\LingXiTong\Desktop\OCR4ZN-Hospital-main\OCR4ZN-Hospital-main\ZN-Hospital-WSIs-Rename.py",
+        },  
+                
+    ]
 
-script_name = r'ZN-Hospital-WSIs-Rename.py'
+    # 启动所有程序并保存进程对象
+    processes = [run_program(prog['path']) for prog in programs]
 
-while True:
-    if not is_script_running(script_name):
-        print(f"{script_name} is not running. Restarting...")
-        time.sleep(5)
-        restart_script(script_name)
-    else:
-        print(f"{script_name} is running.")
-    time.sleep(5)
+    while True:
+        for i, process in enumerate(processes):
+            # 检查每个程序是否仍在运行
+            if process.poll() is not None:  # 如果程序停止
+                print(f"程序{i+1}已停止，重新启动...")
+                prog = programs[i]
+                processes[i] = run_program(prog['path']) # 重新启动程序
+            else:
+                print(f"程序{i+1}正在运行...")
+                
+        # 每隔40秒检查一次所有程序
+        time.sleep(40)
+
+if __name__ == "__main__":
+    main()
+    
+    
