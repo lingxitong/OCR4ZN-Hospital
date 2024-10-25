@@ -10,26 +10,8 @@ import glob
 from tqdm import tqdm
 from utils import *
 #################################### 指定参数
-WSI_DIR_LIST = [
-    r'F:\2024-08-27',
-    r'F:\2024-08-28',
-    r'F:\2024-08-29',
-    r'F:\2024-08-30',
-    r'F:\2024-09-01',
-    r'F:\2024-09-02',
-    r'F:\2024-09-03',
-    r'F:\2024-09-04',
-    r'F:\2024-09-05',
-    r'F:\2024-09-06',
-    r'F:\2024-09-07',
-    r'F:\2024-09-08',
-    r'F:\2024-09-09',
-    r'F:\2024-09-10',
-    r'F:\2024-09-11',
-    r'F:\2024-09-12',
-    r'F:\2024-09-13'
-]
- 
+
+WSI_ROOT_DIR = r'F:\WSI' 
 WORK_DIR = r'F:\WORK_DIR'
 
 #################################### 指定参数
@@ -40,10 +22,10 @@ if __name__ == '__main__':
         os.makedirs(WORK_DIR)
     ocr = PaddleOCR(use_angle_cls=True, lang="ch")
     wsi_list = []
-    for wsi_dir in WSI_DIR_LIST:
-        files = glob.glob(os.path.join(wsi_dir, '*.sdpc'))
-        files.sort()  # Sort the files to maintain order
-        wsi_list.extend(files)
+    for root, dirs, files in os.walk(WSI_ROOT_DIR):
+        for file in files:
+            if file.endswith('.sdpc'):
+                wsi_list.append(os.path.join(root, file))
             
     for wsi_path in tqdm(wsi_list):
         try:
@@ -53,6 +35,10 @@ if __name__ == '__main__':
                 print('已经完成重命名：')
                 continue
             basename = os.path.basename(wsi_path)
+            m_per = get_memory_usage_percentage()
+            if m_per > 0.83:
+                print('内存占用过高，退出程序')
+                break 
             wsi = sdpc.Sdpc(wsi_path)
             wsi.saveLabelImg(label_path)
             img_path90,img_path180,img_path270 = rotate_and_save_image(label_path)

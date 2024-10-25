@@ -1,6 +1,6 @@
 import os
 from PIL import Image
-
+import psutil
 def get_slide_type(OCR_text):
     for text in OCR_text:
         if 'D2-40' in text or 'd2-40' in text:
@@ -288,3 +288,10 @@ def uniform_rename(wsi_path, new_path,label_path, new_label_path):
     os.rename(wsi_path, new_path)
     os.rename(label_path, new_label_path)
     print(f'\033[92mRenamed {os.path.basename(wsi_path)} to {os.path.basename(new_path)}\033[0m')
+
+
+def get_memory_usage_percentage():
+    memory_info = psutil.virtual_memory()
+    memory_usage_percentage = (memory_info.used / memory_info.total) * 100
+    return memory_usage_percentage
+
