@@ -11,13 +11,13 @@ def get_slide_type(OCR_text):
             return 'CD-31'
         if 'Ki-67' in text or 'ki-67' in text:
             return 'KI-67'
-        if 'PD-L1' in text or 'pd-l1' in text:
+        if 'PD-L1' in text or 'pd-l1' in text or 'PDL-1' in text:
             return 'PD-L1'
         if 'TTF-1' in text or 'ttf-1' in text:
             return 'TTF-1'
         if 'PR' in text or 'pr' in text:
             return 'PR'
-        if 'Her-2' in text or 'her-2' in text:
+        if 'Her-2' in text or 'her-2' in text or 'HER-2' in text:
             return 'Her-2'
         if 'PSA' in text or 'psa' in text:
             return 'PSA'
@@ -99,11 +99,66 @@ def get_slide_type(OCR_text):
             return 'S-100'
         if 'SATB2' in text or 'satb2' in text or 'SATB-2' in text or 'satb-2' in text:
             return 'SATB2'
+        if 'PHH3' in text or 'phh3' in text:
+            return 'PHH3'        
+        if 'Desmin' in text or 'DESMIN' in text or 'desmin' in text:
+            return 'Desmin'
+        if 'CerbB-2'  in text or 'cerbb-2' in text:
+            return 'CerbB-2'
+        if 'CATENIN' in text or 'catenin' in text:
+            return 'catenin'
+        if 'CK' in text or 'ck' in text:
+            return 'CK'
+        if 'CDX2' in text or 'cdx2' in text:
+            return 'CDX2'
+        if 'CD34' in text or 'cd34' in text:
+            return 'CD34'
+        if '网染' in text:
+            return '网染'
+        if '网状纤维' in text:
+            return '网状纤维'
+        if '普鲁士蓝' in text:
+            return '普鲁士蓝'
+        if 'PTEN' in text or 'pten' in text:
+            return 'PTEN'
+        if 'SALL4' in text or 'sall4' in text:
+            return 'SALL4'
+        if 'VIMENTIN' in text or 'vimentin' in text:
+            return 'VIMENTIN'
+        if 'MC' in text or 'mc' in text:
+            return 'MC'
+        if 'CD45' in text or 'cd45' in text:
+            return 'CD45'
+        if 'CgA' in text or 'cga' in text:
+            return 'CgA'
+        if 'MOC31' in text or 'moc31' in text:
+            return 'MOC31'
+        if 'NeuN' in text or 'neun' in text:
+            return 'NeuN'
+        if 'DOG-1' in text:
+            return 'DOG-1'
+        if 'GS' in text:
+            return 'GS'
+        if 'Vimentin' in text:
+            return 'Vimentin'
+        if 'CD117' in text:
+            return 'CD117'
+        # CerbB-2 catenin HMB45 CD34 SDHB CD31 CK CgA TPO MC DESM CDX2 BRAF CK DPC4 ERG NapsinA MOC31 SALL4 SYN NeuN  VIMENTIN PTEN
+     
+    
     return 'HE' 
 
 def judge_has_rename(basename):
-    rename_label = ['-HE','D2-40','GATA-3','CD-31','KI-67','PD-L1','TTF-1','PR','Her-2','PSA','ER','SYN','PAX-8','GALECTIN-3','CD-56','HNF1-B','P53','PMS2','MUC6','MUC5AC','MSH6','CD-20','MSH2','MLH1','INSM1','P63','MUC-6','CK20','EBERpb','TRPS1','SF-1','GZB','TIA-1','CD-3','CMV','Clad18.2','CK7',
-                    'MUC-1','MUC-2','MUC-3','MUC-4','MUC-5','MUC5AC','PAX8','VILLIN','SMA','CK19','S-100','SATB2']  
+    # rename_label = ['HE','D2-40','GATA-3','CD-31','KI-67','PD-L1','TTF-1','PR','Her-2','PSA','ER','SYN','PAX-8','GALECTIN-3','CD-56','HNF1-B','P53','PMS2','MUC6','MUC5AC','MSH6','CD-20','MSH2','MLH1','INSM1','P63','MUC-6','CK20','EBERpb','TRPS1','SF-1','GZB','TIA-1','CD-3','CMV','Clad18.2','CK7',
+    #                 'MUC-1','MUC-2','MUC-3','MUC-4','MUC-5','MUC5AC','PAX8','VILLIN','SMA','CK19','S-100','SATB2','PHH3','Desmin','CerbB-2','CK',]  
+    rename_label = ['D2-40','GATA-3','CD-31','KI-67','PD-L1','TTF-1','PR','Her-2','PSA','ER','SYN','PAX-8','GALECTIN-3',
+                'CD-56','HNF1-B','P53','PMS2','MUC6','MUC5AC','MSH6','CD-20','MSH2','MLH1','INSM1','P63','MUC-6','CK20',
+                'EBERpb','TRPS1','SF-1','GZB','TIA-1','CD-3','CMV','Clad18.2','CK7','MUC-1','MUC-2','MUC-3','MUC-4','MUC-5','MUC-6','MUC-7','MUC'
+                'MUC5AC','PAX8','VILLIN','SMA','CK19','S-100','SATB2','SATB-2','Ki-67','普鲁士蓝','网状纤维','PAS','MASSON','DPC4','Desmin','DOG-1','S100','SDHB','CD117','ck','HER-2','CLAD8.2','CK','网染',
+                'CDX2','CAM5.2','P53yul','PHH3','phh3','dog-1','DESMIN','SALL4','Gly3','S100P','SDHBM','STAT6M','DOG1','KI67','Cerb-2','CD31','CD34','HMB45','CD10','MIB1','Pax-8','ki67','Ki67','P16','Ki-67',
+                'Mammag','MUC1','KI67','SMA','AR','CITOGLAS','Her-2','P53','P63','CK5/6','CK5','CK6','CK7','CK8','CK18','CK19','CK20','CK22','CK23','CK34','CK35','CK56','CK68','CK72','CK73','CK74','CK75','CK76','CK77','CK78','CK79','CK80','CK81','CK82','CK83','CK84','CK85','CK86','CK87','CK88','CK89','CK90','CK91','CK92','CK93','CK94','CK95','CK96','CK97','CK98','CK99','CK100','CK101','CK102','CK103','CK104','CK105','CK106','CK107','CK108','CK109','CK110','CK111','CK112','CK113','CK114','CK115','CK116','CK117','CK118','CK119','CK120','CK121','CK122','CK123','CK124','CK125','CK126','CK127','CK128','CK129','CK130','CK131','CK132','CK133',
+                'CK134','CK135','CK136','CK137','CK138','CK139','CK140','CK141','CK142','CK143','CK144','CK145','CK146','CK147','CK148','CK149','CK150','CK151','CK152','CK153','CK154','CK155','CK156','CK157','CK158','CK159','CK160','CK161','CK162','CK163','CK164','CK165','CK166','CK167','CK168','CK169','CK170','CK171','CK172','CK173','CK174','CK175','CK176','CK177','CK178','CK179','CK180','CK181','CK182','CK183','CK184','CK185','CK186','CK187','CK188','CK189','CK190','CK191','CK192','CK193','CK194','CK195','CK196','CK197','CK198','CK199','CK200','CK201','CK202','CK203','CK204','CK205','CK206','CK207','CK208','CK209','CK210','CK211','CK212','CK213','CK214','CK215','CK216','CK217','CK218','CK219','CK220','CK221',
+                'ER','CD','SALL','DPC','PHH','GS','Vimentin']
     if any(label in basename for label in rename_label):
         return True
 
