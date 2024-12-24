@@ -17,7 +17,7 @@ def get_slide_type(OCR_text):
             return 'TTF-1'
         if 'PR' in text or 'pr' in text:
             return 'PR'
-        if 'Her-2' in text or 'her-2' in text or 'HER-2' in text:
+        if 'Her-2' in text or 'her-2' in text or 'HER-2' in text or 'Her' in text:
             return 'Her-2'
         if 'PSA' in text or 'psa' in text:
             return 'PSA'
