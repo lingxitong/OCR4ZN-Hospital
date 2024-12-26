@@ -23,7 +23,7 @@ def get_slide_type(OCR_text):
             return 'PSA'
         if 'ER' in text or 'er' in text:
             return 'ER'
-        if 'syn' in text:
+        if 'syn' in text or 'Syn' in text:
             return 'SYN'
         if 'pax' in text:
             return 'PAX-8'
@@ -143,6 +143,26 @@ def get_slide_type(OCR_text):
             return 'Vimentin'
         if 'CD117' in text:
             return 'CD117'
+        if 'WT-1' in text:
+            return 'WT-1'
+        if 'Hepatocyte' in text:
+            return 'Hepatocyte'
+        if 'MASSON' in text:
+            return 'MASSON'
+        if 'FRA' in text:
+            return 'FRA'
+        if 'Gastrin' in text:
+            return 'Gastrin'
+        if 'Moc31' in text:
+            return 'Moc31'
+        if 'P40' in text:
+            return 'P40'
+        if 'SDHB' in text:
+            return 'SDHB'
+        if 'PTEN' in text:
+            return 'PTEN'
+        if 'SALL4' in text:
+            return 'SALL4'
         # CerbB-2 catenin HMB45 CD34 SDHB CD31 CK CgA TPO MC DESM CDX2 BRAF CK DPC4 ERG NapsinA MOC31 SALL4 SYN NeuN  VIMENTIN PTEN
      
     
@@ -158,7 +178,7 @@ def judge_has_rename(basename):
                 'CDX2','CAM5.2','P53yul','PHH3','phh3','dog-1','DESMIN','SALL4','Gly3','S100P','SDHBM','STAT6M','DOG1','KI67','Cerb-2','CD31','CD34','HMB45','CD10','MIB1','Pax-8','ki67','Ki67','P16','Ki-67',
                 'Mammag','MUC1','KI67','SMA','AR','CITOGLAS','Her-2','P53','P63','CK5/6','CK5','CK6','CK7','CK8','CK18','CK19','CK20','CK22','CK23','CK34','CK35','CK56','CK68','CK72','CK73','CK74','CK75','CK76','CK77','CK78','CK79','CK80','CK81','CK82','CK83','CK84','CK85','CK86','CK87','CK88','CK89','CK90','CK91','CK92','CK93','CK94','CK95','CK96','CK97','CK98','CK99','CK100','CK101','CK102','CK103','CK104','CK105','CK106','CK107','CK108','CK109','CK110','CK111','CK112','CK113','CK114','CK115','CK116','CK117','CK118','CK119','CK120','CK121','CK122','CK123','CK124','CK125','CK126','CK127','CK128','CK129','CK130','CK131','CK132','CK133',
                 'CK134','CK135','CK136','CK137','CK138','CK139','CK140','CK141','CK142','CK143','CK144','CK145','CK146','CK147','CK148','CK149','CK150','CK151','CK152','CK153','CK154','CK155','CK156','CK157','CK158','CK159','CK160','CK161','CK162','CK163','CK164','CK165','CK166','CK167','CK168','CK169','CK170','CK171','CK172','CK173','CK174','CK175','CK176','CK177','CK178','CK179','CK180','CK181','CK182','CK183','CK184','CK185','CK186','CK187','CK188','CK189','CK190','CK191','CK192','CK193','CK194','CK195','CK196','CK197','CK198','CK199','CK200','CK201','CK202','CK203','CK204','CK205','CK206','CK207','CK208','CK209','CK210','CK211','CK212','CK213','CK214','CK215','CK216','CK217','CK218','CK219','CK220','CK221',
-                'ER','CD','SALL','DPC','PHH','GS','Vimentin']
+                'ER','CD','SALL','DPC','PHH','GS','Vimentin','WT-1','Hepatocyte','FRA','Gastrin','P40','SALL4','SDHB','PTEN']
     if any(label in basename for label in rename_label):
         return True
 
